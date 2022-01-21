@@ -4,17 +4,20 @@
 <table class="table table-striped">
     <thead>
     <tr>
+        <th scope="col">Id</th>
         <th scope="col">Título</th>
         <th scope="col">Descrição</th>
         <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>Titulo1</td>
-        <td>Descrição1</td>
+
+    <tr *ngFor="let post of posts">
+        <td>{{post.id}}</td>
+        <td>{{post.titulo}}</td>
+        <td>{{post.descricao}}</td>
         <td>
-            <span class="btn btn-primary" [routerLink]="['/detail-posts']">Detalhes</span>
+            <span class="btn btn-primary" (click)="goToDetails(post)">Detalhes</span>
 
             <span class="p-1">
                 <span class="btn btn-success" [routerLink]="['/update-post']">Alterar</span>
@@ -25,21 +28,7 @@
             </span>
         </td>
     </tr>
-    <tr>
-        <td>Titulo2</td>
-        <td>Descrição2</td>
-        <td>
-            <span class="btn btn-primary" [routerLink]="['/detail-posts']">Detalhes</span>
-
-            <span class="p-1">
-                <span class="btn btn-success" [routerLink]="['/update-post']">Alterar</span>
-            </span>
-
-            <span class="p-1">
-                <span class="btn btn-danger">Excluir</span>
-            </span>
-        </td>
-    </tr>
+    
     </tbody>
 </table>
 

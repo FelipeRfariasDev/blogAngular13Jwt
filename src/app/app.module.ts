@@ -10,6 +10,9 @@ import { ListPostsComponent } from './posts/list-posts/list-posts.component';
 import { UpdatePostsComponent } from './posts/update-posts/update-posts.component';
 import { PostsService } from './posts/posts.service';
 import { DetailPostsComponent } from './posts/detail-posts/detail-posts.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { DetailPostsComponent } from './posts/detail-posts/detail-posts.componen
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [PostsService],
   bootstrap: [AppComponent]
