@@ -5,12 +5,14 @@
     <div class="mb-3">
         <label class="form-label">Titulo</label>
         <input type="text" class="form-control" formControlName="titulo">
+        <span *ngIf="!this.form.get('titulo')?.valid" class="badge bg-danger">campo obrigatório</span>
     </div>
     <div class="mb-3">
         <label class="form-label">Descrição</label>
         <textarea class="form-control" rows="3" formControlName="descricao"></textarea>
+        <span *ngIf="!this.form.get('descricao')?.valid" class="badge bg-danger">campo obrigatório</span>
     </div>
     <div class="mb-3">
-        <button type="submit" class="btn btn-primary mb-3" (click)="put()">Utualizar</button>
+        <button type="submit" [disabled]="!this.form.valid" class="btn btn-primary mb-3" (click)="put()">Utualizar</button>
     </div>
 </form>

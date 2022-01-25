@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Post } from '../../model/post';
 import { PostsService } from '../../service/posts.service';
 
@@ -14,22 +15,28 @@ export class UpdatePostsComponent implements OnInit {
 
   form = new FormGroup({});
 
-  constructor(private postservice: PostsService, private router:Router) { 
+  constructor(private postservice: PostsService, private router:Router, private toastr:ToastrService) { 
     this.post = postservice.getPost();
   }
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      id:new FormControl(this.post?.id),
-      titulo:new FormControl(this.post?.titulo),
-      descricao:new FormControl(this.post?.descricao)
+      id:new FormControl(this.post?.id,Validators.required),
+      titulo:new FormControl(this.post?.titulo,Validators.required),
+      descricao:new FormControl(this.post?.descricao,Validators.required)
     });
   }
 
   put(){
-    this.postservice.put(this.form.value).subscribe(response=>{
-      console.log(response);
-      this.router.navigateByUrl('/list-posts');
+    this.postservice.put(this.form.value).subscribe((response:any)=>{
+      
+      if(response.success){
+        this.router.navigateByUrl('/list-posts');
+        this.toastr.success(response.message,"Sucesso");
+        return;
+      }
+      this.toastr.error(response.message,"Erro");
+      
     });
   }
 
