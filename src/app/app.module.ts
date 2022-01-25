@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { AddPostComponent } from './posts/add-post/add-post.component';
 import { ListPostsComponent } from './posts/list-posts/list-posts.component';
 import { UpdatePostsComponent } from './posts/update-posts/update-posts.component';
-import { PostsService } from './posts/posts.service';
+import { PostsService } from './posts/_service/posts.service';
 import { DetailPostsComponent } from './posts/detail-posts/detail-posts.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

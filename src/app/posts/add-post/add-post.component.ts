@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { PostsService } from '../posts.service';
+import { PostsService } from '../_service/posts.service';
 
 @Component({
   selector: 'app-add-post',
