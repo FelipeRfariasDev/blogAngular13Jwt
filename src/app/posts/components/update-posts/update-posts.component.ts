@@ -29,6 +29,7 @@ export class UpdatePostsComponent implements OnInit {
   put(){
     this.postservice.put(this.form.value).subscribe(response=>{
       console.log(response);
+      this.router.navigateByUrl('/list-posts');
     });
   }
 

@@ -38,5 +38,7 @@ export class PostsService {
     return this.http.put(this.apiUrl+'/posts',post);
   }
 
-  delete(Id:BigInt){}
+  delete(post:Post){
+    return this.http.delete(this.apiUrl+'/posts/'+post.id);
+  }
 }

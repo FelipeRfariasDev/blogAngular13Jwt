@@ -32,4 +32,11 @@ export class ListPostsComponent implements OnInit {
     this.postsService.setPost(post);
     this.router.navigate(['/update-post']);
   }
+
+  goToDelete(post: Post) {
+    this.postsService.delete(post).subscribe(response=>{
+      console.log(response);
+      this.getAll();
+    });
+  }
 }

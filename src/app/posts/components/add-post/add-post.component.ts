@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PostsService } from '../../service/posts.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class AddPostComponent implements OnInit {
     descricao:new FormControl('')
   });
 
-  constructor(private postservice: PostsService) { }
+  constructor(private postservice: PostsService, private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -21,6 +22,7 @@ export class AddPostComponent implements OnInit {
   add(){
     this.postservice.post(this.form.value).subscribe(response=>{
       console.log(response);
+      this.router.navigateByUrl('/list-posts');
     });
   }
 
