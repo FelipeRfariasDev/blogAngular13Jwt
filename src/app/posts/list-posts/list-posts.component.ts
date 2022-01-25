@@ -27,4 +27,9 @@ export class ListPostsComponent implements OnInit {
     this.postsService.setPost(post);
     this.router.navigate(['/detail-posts']);
   }
+
+  goToEdit(post: Post) {
+    this.postsService.setPost(post);
+    this.router.navigate(['/update-post']);
+  }
 }

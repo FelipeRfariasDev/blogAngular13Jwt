@@ -34,7 +34,9 @@ export class PostsService {
     return this.http.post(this.apiUrl+'/posts',post);
   }
   
-  put(post:Post){}
+  put(post:Post){
+    return this.http.put(this.apiUrl+'/posts',post);
+  }
 
   delete(Id:BigInt){}
 }
