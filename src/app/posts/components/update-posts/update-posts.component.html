@@ -1,7 +1,7 @@
 <h1>Atualizar Post <span class="btn btn-success" [routerLink]="['/list-posts']">Voltar</span></h1>
 
 <form [formGroup]="form">
-    <input type="text" class="form-control" formControlName="id">
+    <input type="text" readonly class="form-control" formControlName="id">
     <div class="mb-3">
         <label class="form-label">Titulo</label>
         <input type="text" class="form-control" formControlName="titulo">
