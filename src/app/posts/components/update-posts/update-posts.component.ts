@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Post } from '../model/post';
-import { PostsService } from '../_service/posts.service';
+import { Post } from '../../model/post';
+import { PostsService } from '../../service/posts.service';
 
 @Component({
   selector: 'app-update-posts',
