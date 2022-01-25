@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Post } from '../../model/post';
 import { PostsService } from '../../service/posts.service';
 
@@ -11,7 +12,7 @@ export class ListPostsComponent implements OnInit {
 
   posts: Post[] = [];
 
-  constructor(private postsService: PostsService, private router: Router) { }
+  constructor(private postsService: PostsService, private router: Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getAll();
@@ -33,10 +34,14 @@ export class ListPostsComponent implements OnInit {
     this.router.navigate(['/update-post']);
   }
 
-  goToDelete(post: Post) {
-    this.postsService.delete(post).subscribe(response=>{
-      console.log(response);
-      this.getAll();
+  delete(post: Post) {
+    this.postsService.delete(post).subscribe((response:any)=>{
+      if(response.success){
+        this.getAll();
+        this.toastr.success(response.message,"Sucesso");
+        return;
+      }
+      this.toastr.error(response.message,"Erro");
     });
   }
 }
