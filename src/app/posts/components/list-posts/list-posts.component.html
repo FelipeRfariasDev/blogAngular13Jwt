@@ -25,7 +25,7 @@
             </span>
 
             <span class="p-1">
-                <span class="btn btn-danger" (click)="delete(post)">Excluir</span>
+                <span class="btn btn-danger" (click)="delete(post,template)">Excluir</span>
             </span>
         </td>
     </tr>
@@ -33,3 +33,10 @@
     </tbody>
 </table>
 
+<ng-template #template>
+    <div class="modal-body text-center">
+        <p>Tem certeza que deseja continuar?</p>
+        <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+        <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
+    </div>
+</ng-template>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Post } from '../../model/post';
 import { PostsService } from '../../service/posts.service';
@@ -12,7 +13,16 @@ export class ListPostsComponent implements OnInit {
 
   posts: Post[] = [];
 
-  constructor(private postsService: PostsService, private router: Router,private toastr:ToastrService) { }
+  modalRef: BsModalRef | undefined;
+  post:Post|undefined;
+
+  constructor(
+    private postsService: PostsService, 
+    private router: Router,
+    private toastr:ToastrService,
+    private modalService: BsModalService) {
+
+  }
 
   ngOnInit(): void {
     this.getAll();
@@ -24,6 +34,26 @@ export class ListPostsComponent implements OnInit {
     });
   }
 
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
+  confirm(): void {
+    this.postsService.delete(this.post!).subscribe((response:any)=>{
+      if(response.success){
+        this.getAll();
+        this.toastr.success(response.message,"Sucesso");
+        return;
+      }
+      this.toastr.error(response.message,"Erro");
+    });
+    this.modalRef?.hide();
+  }
+ 
+  decline(): void {
+    this.modalRef?.hide();
+  }
+  
   goToDetails(post: Post) {
     this.postsService.setPost(post);
     this.router.navigate(['/detail-posts']);
@@ -34,14 +64,8 @@ export class ListPostsComponent implements OnInit {
     this.router.navigate(['/update-post']);
   }
 
-  delete(post: Post) {
-    this.postsService.delete(post).subscribe((response:any)=>{
-      if(response.success){
-        this.getAll();
-        this.toastr.success(response.message,"Sucesso");
-        return;
-      }
-      this.toastr.error(response.message,"Erro");
-    });
+  delete(post: Post, template:TemplateRef<any>) {
+    this.post = post;
+    this.openModal(template);
   }
 }
