@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Post } from '../model/post';
 
@@ -12,6 +12,8 @@ export class PostsService {
 
   selectedPost:Post | undefined;
 
+  
+
   constructor(private http: HttpClient) {}
 
   setPost(post:Post){
@@ -23,7 +25,13 @@ export class PostsService {
   }
 
   getAll(){
-    return this.http.get(this.apiUrl+"/posts",{});
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      ContentType: 'application/json'
+    });
+
+    return this.http.get(this.apiUrl+"/posts",{headers});
   }
 
   getFind(Id:BigInt){
@@ -31,7 +39,13 @@ export class PostsService {
   }
 
   post(post:Post){
-    return this.http.post(this.apiUrl+'/posts',post);
+    
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      ContentType: 'application/json'
+    });
+    
+    return this.http.post(this.apiUrl+'/posts',post,{headers});
   }
   
   put(post:Post){

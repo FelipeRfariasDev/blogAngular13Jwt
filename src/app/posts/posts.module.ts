@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
-import { AppRoutingModule } from '../app-routing.module';
 import { AddPostComponent } from './components/add-post/add-post.component';
 import { DetailPostsComponent } from './components/detail-posts/detail-posts.component';
 import { ListPostsComponent } from './components/list-posts/list-posts.component';
@@ -25,7 +24,6 @@ import { PostsService } from './service/posts.service';
     PostsRoutingModule,
     CommonModule,
     HttpClientModule,
-    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
