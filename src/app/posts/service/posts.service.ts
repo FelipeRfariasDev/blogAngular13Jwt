@@ -11,9 +11,6 @@ export class PostsService {
   apiUrl : string = environment.apiUrl;
 
   selectedPost:Post | undefined;
-
-  
-
   constructor(private http: HttpClient) {}
 
   setPost(post:Post){
@@ -30,12 +27,18 @@ export class PostsService {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       ContentType: 'application/json'
     });
-
+    
     return this.http.get(this.apiUrl+"/posts",{headers});
   }
 
-  getFind(Id:BigInt){
-    return this.http.get(this.apiUrl+"/posts/"+Id);
+  getFind(Id:Number){
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      ContentType: 'application/json'
+    });
+
+    return this.http.get(this.apiUrl+"/posts/"+Id,{headers});
   }
 
   post(post:Post){
@@ -49,10 +52,22 @@ export class PostsService {
   }
   
   put(post:Post){
-    return this.http.put(this.apiUrl+'/posts',post);
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      ContentType: 'application/json'
+    });
+
+    return this.http.put(this.apiUrl+'/posts',post,{headers});
   }
 
   delete(post:Post){
-    return this.http.delete(this.apiUrl+'/posts/'+post.id);
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      ContentType: 'application/json'
+    });
+
+    return this.http.delete(this.apiUrl+'/posts/'+post.id,{headers});
   }
 }

@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   login(){
     this.authService.login(this.form.value).subscribe((response:any)=>{
-      this.authService.setAccessToken(response.access_token);
+      this.authService.setAccessToken(response.accessToken);
       this.router.navigateByUrl('/list-posts');
     })
   }
