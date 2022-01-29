@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../service/auth.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
     password:new FormControl('',Validators.required)
   });
 
-  constructor(private authService:AuthService, private router:Router) { }
+  constructor(private authService:AuthService, private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     if(this.authService.isLoggedIn()){
@@ -26,6 +27,10 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form.value).subscribe((response:any)=>{
       this.authService.setAccessToken(response.accessToken);
       this.router.navigateByUrl('/list-posts');
-    })
+    }, error => {
+      if(error.error.success==false || error.error.status==401){
+        this.toastr.error(error.error.message,"Erro");
+      }
+    });
   }
 }

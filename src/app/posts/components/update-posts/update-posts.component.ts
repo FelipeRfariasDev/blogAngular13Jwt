@@ -29,14 +29,17 @@ export class UpdatePostsComponent implements OnInit {
 
   put(){
     this.postservice.put(this.form.value).subscribe((response:any)=>{
-      
       if(response.success){
         this.router.navigateByUrl('/list-posts');
         this.toastr.success(response.message,"Sucesso");
         return;
       }
-      this.toastr.error(response.message,"Erro");
-      
+    }, error => {
+      if(error.error.success==false || error.error.status==403){
+        localStorage.setItem('accessToken','');
+        this.toastr.error(error.error.message,"Erro");
+        this.router.navigate(['/']);
+      }
     });
   }
 

@@ -1,7 +1,9 @@
+import { error } from '@angular/compiler/src/util';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { catchError } from 'rxjs';
 import { Post } from '../../model/post';
 import { PostsService } from '../../service/posts.service';
 
@@ -31,6 +33,12 @@ export class ListPostsComponent implements OnInit {
   getAll() {
     this.postsService.getAll().subscribe((response: any) => {
       this.posts = response.posts;
+    }, error => {
+      if(error.error.success==false || error.error.status==403){
+        localStorage.setItem('accessToken','');
+        this.toastr.error(error.error.message,"Erro");
+        this.router.navigate(['/']);
+      }
     });
   }
 
