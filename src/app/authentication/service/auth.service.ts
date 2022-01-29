@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -15,6 +15,16 @@ export class AuthService {
 
   login(user:User){
     return this.http.post(this.apiUrl+'/login',user);
+  }
+
+  logout(){
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      ContentType: 'application/json'
+    });
+
+    return this.http.post(this.apiUrl+'/logout',{headers});
   }
 
   isLoggedIn(){

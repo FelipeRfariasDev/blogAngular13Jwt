@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../authentication/service/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -6,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService:AuthService, private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
   }
 
+  logout(){
+    this.authService.logout().subscribe((response:any)=>{
+      localStorage.setItem('accessToken','');
+      this.router.navigate(['/']);
+      this.toastr.success("Successfully logged out","Sucesso");
+    }, error => {
+      localStorage.setItem('accessToken','');
+      this.router.navigate(['/']);
+      this.toastr.success("Successfully logged out","Sucesso");
+    });
+  }
 }
