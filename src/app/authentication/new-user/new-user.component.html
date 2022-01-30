@@ -1,0 +1,22 @@
+<h1>Novo Usuário</h1>
+
+<form [formGroup]="form">
+    <div class="mb-3">
+        <label class="form-label">Nome</label>
+        <input type="text" class="form-control" formControlName="name">
+        <span *ngIf="!this.form.get('name')?.valid" class="badge bg-danger">campo obrigatório</span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="email">
+        <span *ngIf="!this.form.get('email')?.valid" class="badge bg-danger">campo obrigatório</span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Senha</label>
+        <input type="password" class="form-control" formControlName="password">
+        <span *ngIf="!this.form.get('password')?.valid" class="badge bg-danger">campo obrigatório</span>
+    </div>
+    <div class="mb-3">
+        <button type="submit" [disabled]="!this.form.valid" (click)="cadastrar()" class="btn btn-primary mb-3">Cadastrar</button>
+    </div>
+</form>

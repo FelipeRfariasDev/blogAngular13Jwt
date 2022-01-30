@@ -17,6 +17,10 @@ export class AuthService {
     return this.http.post(this.apiUrl+'/login',user);
   }
 
+  newUser(user:User){
+    return this.http.post(this.apiUrl+'/new/user',user);
+  }
+
   logout(){
 
     const headers = new HttpHeaders({
