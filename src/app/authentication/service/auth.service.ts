@@ -21,8 +21,6 @@ export class AuthService {
     return this.http.post(this.apiUrl+'/new/user',user);
   }
 
-  contador = 0;
-
   logout(){
     
     const headers = new HttpHeaders({
