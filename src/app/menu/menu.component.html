@@ -1,11 +1,16 @@
-<ul class="nav justify-content-end">
+<ul class="nav justify-content-end" *ngIf="isLogged()">
     <li class="nav-item">
       <a class="nav-link" [routerLink]="['/list-posts']">Posts</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/']">Login</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/logout']">Logout</a>
+      <button type="button" class="btn btn-link text-decoration-none" (click)="openModal(template)">Logout</button>
     </li>
 </ul>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+      <p>Tem certeza que deseja continuar?</p>
+      <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+      <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
+  </div>
+</ng-template>

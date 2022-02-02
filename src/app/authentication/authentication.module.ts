@@ -8,13 +8,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NewUserComponent } from './new-user/new-user.component';
-import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    NewUserComponent,
-    LogoutComponent
+    NewUserComponent
   ],
   imports: [
     AuthenticationRoutingModule,

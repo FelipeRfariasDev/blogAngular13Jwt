@@ -21,14 +21,16 @@ export class AuthService {
     return this.http.post(this.apiUrl+'/new/user',user);
   }
 
-  logout(){
+  contador = 0;
 
+  logout(){
+    
     const headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       ContentType: 'application/json'
     });
 
-    return this.http.post(this.apiUrl+'/logout',{headers});
+    return this.http.post(this.apiUrl+'/logout',{},{headers});
   }
 
   isLoggedIn(){
