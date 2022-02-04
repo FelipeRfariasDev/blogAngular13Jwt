@@ -10,15 +10,9 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './authentication/service/auth.service';
 
-/** Pass untouched request through to the next request handler. */
 @Injectable()
 export class Interceptor implements HttpInterceptor {
     private openURLs = [`${environment.apiUrl}`];
-    private fileAPI = [
-        'http://localhost:8080/v1/logged/save',
-        'http://localhost:8080/v1/logged/download'
-    ];
-
     private refreshInProgress = false;
 
     constructor(private authService: AuthService) { }
@@ -27,23 +21,12 @@ export class Interceptor implements HttpInterceptor {
         request: HttpRequest<any>,
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
-        const lang = window.navigator.language.startsWith('pt')
-            ? 'pt-BR'
-            : 'en-US';
 
         let headers = {
             'Access-Control-Expose-Headers': 'Authorization',
-            'Access-Control-Allow-Credentials': 'true',
-            'Accept-Language': lang
+            'Access-Control-Allow-Credentials': 'true'
         };
-
-        if (this.fileAPI.indexOf(request.url) === -1) {
-            headers = Object.assign(headers, {
-                'Content-Type': 'application/json',
-                Accept: 'application/json, text/csv, text/plain, */*'
-            });
-        }
-
+        
         if (
             this.authService.isLoggedIn() &&
             this.openURLs.indexOf(request.url) === -1
@@ -62,11 +45,10 @@ export class Interceptor implements HttpInterceptor {
             this.refreshInProgress = true;
 
             this.authService.refreshToken().subscribe(
-                (data: Token) => {
+                (data: any) => {
                     this.refreshInProgress = false;
-                    this.authService.setTokens(
-                        data.accessToken,
-                        data.refreshToken
+                    this.authService.setAccessToken(
+                        data.accessToken
                     );
                 },
                 error => {

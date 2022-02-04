@@ -11,10 +11,25 @@ export class AuthService {
 
   apiUrl = environment.apiUrl;
 
+  expiration = new Date();
+
   constructor(private http: HttpClient, private router:Router) { }
+
+  setExpiration(data:Date){
+    this.expiration = data;
+  }
 
   login(user:User){
     return this.http.post(this.apiUrl+'/login',user);
+  }
+
+  refreshToken(){
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      ContentType: 'application/json'
+    });
+    
+    return this.http.post(this.apiUrl+'/refresh',{headers});
   }
 
   newUser(user:User){
@@ -35,7 +50,8 @@ export class AuthService {
     const accessToken = localStorage.getItem('accessToken');
     return (
       accessToken!==null &&
-      accessToken!==''
+      accessToken!=='' &&
+      new Date()<this.expiration
     )
   }
 

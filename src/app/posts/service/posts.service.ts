@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Post } from '../model/post';
 
@@ -22,52 +22,22 @@ export class PostsService {
   }
 
   getAll(){
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      ContentType: 'application/json'
-    });
-    
-    return this.http.get(this.apiUrl+"/posts",{headers});
+    return this.http.get(this.apiUrl+"/posts");
   }
 
   getFind(Id:Number){
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      ContentType: 'application/json'
-    });
-
-    return this.http.get(this.apiUrl+"/posts/"+Id,{headers});
+    return this.http.get(this.apiUrl+"/posts/"+Id);
   }
 
   post(post:Post){
-    
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      ContentType: 'application/json'
-    });
-    
-    return this.http.post(this.apiUrl+'/posts',post,{headers});
+    return this.http.post(this.apiUrl+'/posts',post);
   }
   
   put(post:Post){
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      ContentType: 'application/json'
-    });
-
-    return this.http.put(this.apiUrl+'/posts',post,{headers});
+    return this.http.put(this.apiUrl+'/posts',post);
   }
 
   delete(post:Post){
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      ContentType: 'application/json'
-    });
-
-    return this.http.delete(this.apiUrl+'/posts/'+post.id,{headers});
+    return this.http.delete(this.apiUrl+'/posts/'+post.id);
   }
 }
