@@ -12,15 +12,16 @@ export class AddPostComponent implements OnInit {
 
   form = new FormGroup({
     titulo:new FormControl('',Validators.required),
-    descricao:new FormControl('',Validators.required)
+    descricao:new FormControl('',Validators.required),
+    imagem:new FormControl('',Validators.required)
   });
 
   constructor(private postservice: PostsService, private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
   }
-
   add(){
+  
     this.postservice.post(this.form.value).subscribe((response:any)=>{
       if(response.success){
         this.router.navigateByUrl('/list-posts');
