@@ -8,6 +8,7 @@
         <th scope="col">Id</th>
         <th scope="col">Título</th>
         <th scope="col">Descrição</th>
+        <th scope="col">Imagem</th>
         <th scope="col"></th>
     </tr>
     </thead>
@@ -17,6 +18,7 @@
         <td>{{post.id}}</td>
         <td>{{post.titulo}}</td>
         <td>{{post.descricao}}</td>
+        <td><img src="{{post.imagem}}" width="200"></td>
         <td>
             <span class="btn btn-primary" (click)="goToDetails(post)">Detalhes</span>
 
