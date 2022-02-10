@@ -29,7 +29,7 @@ export class PostsService {
     return this.http.get(this.apiUrl+"/posts/"+Id);
   }
 
-  post(post:Post){
+  post(post:FormData){
     return this.http.post(this.apiUrl+'/posts',post);
   }
   

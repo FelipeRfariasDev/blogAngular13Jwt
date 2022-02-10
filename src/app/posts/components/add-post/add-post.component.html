@@ -13,8 +13,7 @@
     </div>
     <div class="mb-3">
         <label class="form-label">Imagem</label>
-        <input type="file" class="form-control" formControlName="imagem">
-        <span *ngIf="!this.form.get('imagem')?.valid" class="badge bg-danger">campo obrigatório</span>
+        <input type="file" class="form-control" (change)="inputFileChange($event)">
     </div>
     <div class="mb-3">
         <button type="submit" [disabled]="!this.form.valid" class="btn btn-primary mb-3" (click)="add()">Salvar</button>
