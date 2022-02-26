@@ -31,7 +31,12 @@
             </span>
         </td>
     </tr>
-    
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" (click)="prevPageUrl()">Anterior</a></li>
+          <li class="page-item"><a class="page-link" (click)="nextPageUrl()">Próximo</a></li>
+        </ul>
+      </nav>
     </tbody>
 </table>
 

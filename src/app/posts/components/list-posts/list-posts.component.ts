@@ -14,6 +14,8 @@ import { PostsService } from '../../service/posts.service';
 export class ListPostsComponent implements OnInit {
 
   posts: Post[] = [];
+  prev_page_url:any="";
+  next_page_url:any="";
 
   modalRef: BsModalRef | undefined;
   post:Post|undefined;
@@ -32,13 +34,31 @@ export class ListPostsComponent implements OnInit {
 
   getAll() {
     this.postsService.getAll().subscribe((response: any) => {
-      this.posts = response.posts;
+      this.posts = response.posts.data;
+      this.prev_page_url=response.posts.prev_page_url;
+      this.next_page_url=response.posts.next_page_url;
     }, error => {
       if(error.error.success==false || error.error.status==403){
         localStorage.setItem('accessToken','');
         this.toastr.error(error.error.message,"Erro");
         this.router.navigate(['/']);
       }
+    });
+  }
+
+  prevPageUrl(){
+    this.postsService.getAllPrev(this.prev_page_url).subscribe((response: any) => {
+      this.posts = response.posts.data;
+      this.prev_page_url=response.posts.prev_page_url;
+      this.next_page_url=response.posts.next_page_url;
+    });
+  }
+
+  nextPageUrl(){
+    this.postsService.getAllPrev(this.next_page_url).subscribe((response: any) => {
+      this.posts = response.posts.data;
+      this.prev_page_url=response.posts.prev_page_url;
+      this.next_page_url=response.posts.next_page_url;
     });
   }
 

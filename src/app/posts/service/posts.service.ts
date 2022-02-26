@@ -25,6 +25,14 @@ export class PostsService {
     return this.http.get(this.apiUrl+"/posts");
   }
 
+  getAllPrev(url:any){
+    return this.http.get(url);
+  }
+
+  getAllNext(url:any){
+    return this.http.get(url);
+  }
+
   getFind(Id:Number){
     return this.http.get(this.apiUrl+"/posts/"+Id);
   }
