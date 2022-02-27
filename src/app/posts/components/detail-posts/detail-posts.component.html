@@ -5,6 +5,19 @@
 <p class="bd-lead">
     {{post?.descricao}}
 </p>
+
+<h2>Adicionar Comentário</h2>
+
+<form [formGroup]="form">
+    <div class="mb-3">
+        <label class="form-label">Descrição</label>
+        <input type="text" class="form-control" formControlName="descricao">
+    </div>
+    <div class="mb-3">
+        <button type="submit" [disabled]="!this.form.valid" class="btn btn-primary mb-3" (click)="addComentario()">Salvar</button>
+    </div>
+</form>
+
 <h2>Comentários</h2>
 
 <ol class="list-group">
@@ -12,6 +25,14 @@
       <div class="ms-2">
         {{comentario.descricao}}
       </div>
-      <span class="btn btn-danger">Excluir</span>
+      <span class="btn btn-danger" (click)="deleteComentario(comentario,template)">Excluir</span>
     </li>
 </ol>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+      <p>Tem certeza que deseja continuar?</p>
+      <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+      <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
+  </div>
+</ng-template>
