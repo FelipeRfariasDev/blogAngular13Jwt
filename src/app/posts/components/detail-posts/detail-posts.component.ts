@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Post } from '../../model/post';
 import { PostsService } from '../../service/posts.service';
 
@@ -11,7 +10,7 @@ export class DetailPostsComponent implements OnInit {
 
   post?:Post;
 
-  constructor(private postservice: PostsService, private router:Router) { 
+  constructor(private postservice: PostsService) { 
     this.post = postservice.getPost();
   }
 

@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { User } from '../model/user';
 
@@ -13,7 +12,7 @@ export class AuthService {
 
   expiration = new Date();
 
-  constructor(private http: HttpClient, private router:Router) { }
+  constructor(private http: HttpClient) { }
 
   setExpiration(data:Date){
     this.expiration = data;
