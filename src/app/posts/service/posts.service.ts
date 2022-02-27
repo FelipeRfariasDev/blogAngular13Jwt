@@ -21,13 +21,23 @@ export class PostsService {
     return this.selectedPost;
   }
 
-  getPagesList(url:any=null){
+  getPagesList(url:any=null,valorBuscar=null){
+    if(!url){
+      url = this.apiUrl+"/posts";
+    }
+    if(valorBuscar){
+      url = url + "?buscar="+valorBuscar;
+    }
+    return this.http.get(url);
+  }
+  
+  getPagesListParametro(url:any=null){
     if(url){
       return this.http.get(url);
     }
     return this.http.get(this.apiUrl+"/posts");
   }
-  
+
   getFind(Id:Number){
     return this.http.get(this.apiUrl+"/posts/"+Id);
   }

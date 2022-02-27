@@ -5,3 +5,13 @@
 <p class="bd-lead">
     {{post?.descricao}}
 </p>
+<h2>Comentários</h2>
+
+<ol class="list-group">
+    <li class="list-group-item d-flex justify-content-between" *ngFor="let comentario of post?.comentarios">
+      <div class="ms-2">
+        {{comentario.descricao}}
+      </div>
+      <span class="btn btn-danger">Excluir</span>
+    </li>
+</ol>

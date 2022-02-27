@@ -3,4 +3,5 @@ export interface Post {
     titulo:string;
     descricao:string;
     imagem:string;
+    comentarios?:any;
 }

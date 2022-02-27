@@ -19,6 +19,10 @@ export class ListPostsComponent implements OnInit {
   modalRef: BsModalRef | undefined;
   post:Post|undefined;
 
+  form = new FormGroup({
+    buscar: new FormControl('', Validators.required)
+  });
+
   constructor(
     private postsService: PostsService, 
     private router: Router,
@@ -32,9 +36,16 @@ export class ListPostsComponent implements OnInit {
   }
 
   getPagesList(url:any=null) {
-    this.postsService.getPagesList(url).subscribe((response: any) => {
+    
+    var valorBuscar = this.form.value.buscar;
+
+    this.postsService.getPagesList(url,valorBuscar).subscribe((response: any) => {
       this.posts = response.posts.data;
       this.links = response.posts.links;
+      
+      if(!url){
+        url = response.posts.path;
+      }
       this.link_page_atual = url;
     }, error => {
       if(error.error.success==false || error.error.status==403){
