@@ -33,8 +33,7 @@
     </tr>
     <nav aria-label="Page navigation example">
         <ul class="pagination">
-          <li class="page-item"><a class="page-link" (click)="prevPageUrl()">Anterior</a></li>
-          <li class="page-item"><a class="page-link" (click)="nextPageUrl()">Próximo</a></li>
+          <li class="page-item {{link.active==true?'active':''}}" *ngFor="let link of links"><button class="page-link" [disabled]="link.active" (click)="getPagesList(link.url)">{{link.label}}</button></li>
         </ul>
       </nav>
     </tbody>

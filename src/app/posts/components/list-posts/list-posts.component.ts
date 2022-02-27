@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -12,8 +13,8 @@ import { PostsService } from '../../service/posts.service';
 export class ListPostsComponent implements OnInit {
 
   posts: Post[] = [];
-  prev_page_url:any="";
-  next_page_url:any="";
+  links:any="";
+  link_page_atual = "";
 
   modalRef: BsModalRef | undefined;
   post:Post|undefined;
@@ -27,36 +28,20 @@ export class ListPostsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAll();
+    this.getPagesList();
   }
 
-  getAll() {
-    this.postsService.getAll().subscribe((response: any) => {
+  getPagesList(url:any=null) {
+    this.postsService.getPagesList(url).subscribe((response: any) => {
       this.posts = response.posts.data;
-      this.prev_page_url=response.posts.prev_page_url;
-      this.next_page_url=response.posts.next_page_url;
+      this.links = response.posts.links;
+      this.link_page_atual = url;
     }, error => {
       if(error.error.success==false || error.error.status==403){
         localStorage.setItem('accessToken','');
         this.toastr.error(error.error.message,"Erro");
         this.router.navigate(['/']);
       }
-    });
-  }
-
-  prevPageUrl(){
-    this.postsService.getAllPrev(this.prev_page_url).subscribe((response: any) => {
-      this.posts = response.posts.data;
-      this.prev_page_url=response.posts.prev_page_url;
-      this.next_page_url=response.posts.next_page_url;
-    });
-  }
-
-  nextPageUrl(){
-    this.postsService.getAllPrev(this.next_page_url).subscribe((response: any) => {
-      this.posts = response.posts.data;
-      this.prev_page_url=response.posts.prev_page_url;
-      this.next_page_url=response.posts.next_page_url;
     });
   }
 
@@ -67,7 +52,7 @@ export class ListPostsComponent implements OnInit {
   confirm(): void {
     this.postsService.delete(this.post!).subscribe((response:any)=>{
       if(response.success){
-        this.getAll();
+        this.getPagesList(this.link_page_atual);
         this.toastr.success(response.message,"Sucesso");
         return;
       }
