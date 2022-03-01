@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   login(){
     this.authService.login(this.form.value).subscribe((response:any)=>{
       this.authService.setAccessToken(response.accessToken);
-      this.authService.setExpiration(new Date(response.dataTimeFinal));
+      this.authService.setExpiration(new Date(response.dateTimeFinal));
       this.router.navigateByUrl('/list-posts');
     }, error => {
       if(error.error.success==false || error.error.status==401){
