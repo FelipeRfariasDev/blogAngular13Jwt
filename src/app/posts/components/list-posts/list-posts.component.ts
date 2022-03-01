@@ -32,14 +32,14 @@ export class ListPostsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPagesList();
+    this.getPaginate();
   }
 
-  getPagesList(url:any=null) {
+  getPaginate(url:any=null) {
     
     var valorBuscar = this.form.value.buscar;
 
-    this.postsService.getPagesList(url,valorBuscar).subscribe((response: any) => {
+    this.postsService.getPaginate(url,valorBuscar).subscribe((response: any) => {
       this.posts = response.posts.data;
       this.links = response.posts.links;
       
@@ -63,7 +63,7 @@ export class ListPostsComponent implements OnInit {
   confirm(): void {
     this.postsService.delete(this.post!).subscribe((response:any)=>{
       if(response.success){
-        this.getPagesList(this.link_page_atual);
+        this.getPaginate(this.link_page_atual);
         this.toastr.success(response.message,"Sucesso");
         return;
       }

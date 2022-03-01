@@ -11,6 +11,7 @@ export class PostsService {
   apiUrl : string = environment.apiUrl;
 
   selectedPost:Post | undefined;
+
   constructor(private http: HttpClient) {}
 
   setPost(post:Post){
@@ -26,8 +27,6 @@ export class PostsService {
     return this.http.get(url);
   }
 
-  
-
   addComentario(descricao:string){
     let url = this.apiUrl+"/comentarios/";
     return this.http.post(url,{
@@ -41,7 +40,7 @@ export class PostsService {
     return this.http.delete(url+id);
   }
 
-  getPagesList(url:any=null,valorBuscar=null){
+  getPaginate(url:any=null,valorBuscar=null){
     if(!url){
       url = this.apiUrl+"/posts";
     }

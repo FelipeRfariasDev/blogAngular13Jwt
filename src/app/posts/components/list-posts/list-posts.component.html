@@ -5,7 +5,7 @@
             <input type="text" class="form-control-plaintext" formControlName="buscar" placeholder="O que você deseja buscar?">
         </div>
         <div class="col-auto">
-            <button type="submit" [disabled]="!this.form.valid" class="btn btn-primary mb-3" (click)="getPagesList()">Salvar</button>
+            <button type="submit" [disabled]="!this.form.valid" class="btn btn-primary mb-3" (click)="getPaginate()">Buscar</button>
         </div>
     </form>
 </div>
@@ -38,11 +38,10 @@
                   </svg>
             </span>
         </td>
-        
     </tr>
     <nav aria-label="Page navigation example">
         <ul class="pagination">
-          <li class="page-item {{link.active==true?'active':''}}" *ngFor="let link of links"><button class="page-link" [disabled]="link.active" (click)="getPagesList(link.url)">{{link.label}}</button></li>
+          <li class="page-item {{link.active==true?'active':''}}" *ngFor="let link of links"><button class="page-link" [disabled]="link.active" (click)="getPaginate(link.url)">{{link.label}}</button></li>
         </ul>
       </nav>
     </tbody>
