@@ -20,6 +20,26 @@ export class PostsService {
   getPost(){
     return this.selectedPost;
   }
+  
+  getPostById(id:Number){
+    let url = this.apiUrl+"/posts/"+id;
+    return this.http.get(url);
+  }
+
+  
+
+  addComentario(descricao:string){
+    let url = this.apiUrl+"/comentarios/";
+    return this.http.post(url,{
+      post_id:this.selectedPost?.id,
+      descricao:descricao
+    });
+  }
+
+  deleteComentario(id:Number){
+    let url = this.apiUrl+"/comentarios/";
+    return this.http.delete(url+id);
+  }
 
   getPagesList(url:any=null,valorBuscar=null){
     if(!url){

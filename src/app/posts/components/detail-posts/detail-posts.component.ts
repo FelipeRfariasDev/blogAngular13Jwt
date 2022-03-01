@@ -14,7 +14,7 @@ export class DetailPostsComponent implements OnInit {
 
   post?:Post;
   modalRef: BsModalRef | undefined;
-
+  comentId?:Number; 
   form = new FormGroup({
     descricao: new FormControl('', Validators.required)
   });
@@ -30,27 +30,38 @@ export class DetailPostsComponent implements OnInit {
   }
 
   addComentario(){
-    alert("adicionar um comentário");
+    this.postservice.addComentario(this.form.value.descricao).subscribe((response:any)=>{
+      this.updateSelectedPost();
+      this.form.reset();
+    });
   }
+
+  updateSelectedPost(){
+    this.postservice.getPostById(this.post!.id!).subscribe((response:any)=>{
+      this.postservice.setPost(response.post);
+      this.post=this.postservice.getPost();
+    });
+  }
+  
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
-  deleteComentario(comentario: any, template:TemplateRef<any>) {
+  deleteComentario(id: Number, template:TemplateRef<any>) {
+    this.comentId = id;
     this.openModal(template);
   }
 
   confirm(): void {
-    /*
-    this.postsService.delete(this.post!).subscribe((response:any)=>{
+    
+    this.postservice.deleteComentario(this.comentId!).subscribe((response:any)=>{
       if(response.success){
-        this.getPagesList(this.link_page_atual);
         this.toastr.success(response.message,"Sucesso");
+        this.updateSelectedPost();
         return;
       }
       this.toastr.error(response.message,"Erro");
     });
-    
-    */
+  
     this.modalRef?.hide();
   }
  
