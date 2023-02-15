@@ -1,3 +1,3 @@
-# BlogAngular 13.1.3 Bootstrap 
+# AngularBootstrap 13.1.3  
 
-- Consumindo API JWT / Crud com Upload
+- Exemplo Crud Blog com upload consumindo API com Autenticação JWT
